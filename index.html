@@ -1,13 +1,91 @@
 ---
 layout: default
-title: Your New Jekyll Site
+title: RunTNT
 ---
 
 <div id="home">
-  <h1>Blog Posts</h1>
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
+
+	{% for post in paginator.posts limit:1 %}
+	
+		<article class="is is-post">
+			<header class="style1">
+				<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+				<span class="byline">{{ post.date | date_to_string }}</span>
+			</header>
+			<a href="http://fav.me/d5pjw3g" class="image image-featured">
+				<img src="{{ post.image }}" alt="" />
+			</a>
+			{{ post.excerpt }}<a href="{{ post.url }}" class="button button-style1">More</a>
+		</article>
+
+	{% endfor %}
+
+	<div class="divider"></div>
+
+	<div class="row">
+		{% for post in paginator.posts offset:1 limit:2 %}
+		<div class="6u">
+			<article class="is {% cycle 'is-pair-one', 'is-pair-two' %}">
+				<header>
+					<h2>{{ post.title }}</h2>
+				</header>
+				<a href="http://fav.me/d5uvswq" class="image image-full"><img src="{{ site.url }}/images/pic05.jpg" alt="" /></a>
+				{{ post.excerpt }} <a href="{{ post.url }}">continue &rsaquo;</a>
+			</article>
+		</div>
+		{% endfor %}
+	</div>
+
+	<div class="divider"></div>
+
+	{% for post in paginator.posts offset:3 limit:2 %}
+		<article class="is is-post">
+			<header class="style1">
+				<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+				<span class="byline">{{ post.date | date_to_string }}</span>
+			</header>
+			<a href="http://fav.me/d5pjw3g" class="image image-featured">
+				<img src="{{ site.url }}/images/pic01.jpg" alt="" />
+			</a>
+			{{ post.excerpt }}<a href="{{ post.url }}" class="button button-style2">More</a>
+		</article>
+
+		<div class="divider"></div>
+		
+	{% endfor %}
+
+
+<!-- Pagination links -->
+<div class="pagination">
+
+	{% if paginator.previous_page %}
+		{% if paginator.previous_page == 1 %}
+			<a href="/">Prev</a>
+		{% else %}
+			<a href="/page{{ paginator.previous_page }}" class="previous">Prev</a>
+		{% endif %}
+	{% else %}
+		<span class="disabled">Prev</span>
+	{% endif %}
+
+	{% if paginator.page == 1 %}
+		<span class="active">1</span>
+	{% else %}
+		<a href="/">1</a>
+	{% endif %}
+	{% for count in (2..paginator.total_pages) %}
+		{% if count == paginator.page %}
+			<span class="active">{{ count }}</span>
+		{% else %}
+			<a href="/page{{ count }}">{{ count }}</a>
+		{% endif %}
+	{% endfor %}
+	{% if paginator.next_page %}
+		<a href="/page{{ paginator.next_page }}" class="next">Next</a>
+	{% else %}
+		<span class="disabled">Next</span>
+	{% endif %}
+</div>
+
+
 </div>

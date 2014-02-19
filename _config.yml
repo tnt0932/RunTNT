@@ -1,3 +1,6 @@
-name: Your New Jekyll Site
+name: RunTNT
+byline: Adventures in Trail Running
 markdown: redcarpet
 pygments: true
+paginate: 5
+permalink: /:year/:title
